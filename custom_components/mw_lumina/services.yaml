@@ -1,0 +1,64 @@
+apply_scene:
+  name: Aplicar cena
+  description: >
+    Ativa uma cena predefinida ou customizada na casa inteira (sem `room`)
+    ou em um ambiente. Duração em minutos; ao expirar, o circadiano reassume.
+  target:
+  fields:
+    scene:
+      name: Cena
+      description: Identificador da cena (ex. por_do_sol, cinema, trabalho).
+      required: true
+      example: cinema
+      selector:
+        text:
+    room:
+      name: Ambiente
+      description: Chave do ambiente (ex. escritorio). Omita para aplicar na casa toda.
+      example: escritorio
+      selector:
+        text:
+    minutes:
+      name: Duração (minutos)
+      description: Tempo de hold da cena antes de o circadiano reassumir.
+      default: 90
+      selector:
+        number:
+          min: 1
+          max: 1440
+          unit_of_measurement: min
+set_mode:
+  name: Definir modo
+  description: Coloca um ambiente em automático (auto) ou congela-o no que está (manual).
+  target:
+  fields:
+    room:
+      name: Ambiente
+      description: Chave do ambiente.
+      required: true
+      example: escritorio
+      selector:
+        text:
+    mode:
+      name: Modo
+      description: auto = circadiano/agenda; manual = Lúmina não mexe.
+      required: true
+      selector:
+        select:
+          options:
+            - label: Auto
+              value: auto
+            - label: Manual
+              value: manual
+clear_scene:
+  name: Limpar cena
+  description: >
+    Cancela a cena ativa (casa inteira sem `room`, ou só no ambiente).
+  target:
+  fields:
+    room:
+      name: Ambiente
+      description: Chave do ambiente; omita para limpar a casa.
+      example: escritorio
+      selector:
+        text:

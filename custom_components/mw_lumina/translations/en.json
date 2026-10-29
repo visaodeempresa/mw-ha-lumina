@@ -1,0 +1,68 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "MW Lúmina",
+        "description": "Circadian lighting per room, with schedules, weekdays, temperature, humidity, weather and preset scenes. All rich configuration lives in the panel (sidebar → MW Lúmina).",
+        "data": {
+          "name": "House name"
+        }
+      }
+    },
+    "abort": {
+      "single_instance_allowed": "MW Lúmina is a single-instance integration — it is already configured."
+    }
+  },
+  "services": {
+    "apply_scene": {
+      "name": "Apply scene",
+      "description": "Activate a scene for the whole house or one room, with minutes-based hold.",
+      "fields": {
+        "scene": {
+          "name": "Scene"
+        },
+        "room": {
+          "name": "Room"
+        },
+        "minutes": {
+          "name": "Duration (minutes)"
+        }
+      }
+    },
+    "set_mode": {
+      "name": "Set mode",
+      "description": "Auto lets the circadian engine organize; manual freezes the room.",
+      "fields": {
+        "room": {
+          "name": "Room"
+        },
+        "mode": {
+          "name": "Mode"
+        }
+      }
+    },
+    "clear_scene": {
+      "name": "Clear scene",
+      "description": "Cancel the active scene for the house or a room.",
+      "fields": {
+        "room": {
+          "name": "Room"
+        }
+      }
+    }
+  },
+  "select": {
+    "modo": {
+      "state": {
+        "auto": "Auto (circadian)",
+        "manual": "Manual"
+      }
+    }
+  },
+  "sensor": {
+    "alvo": {
+      "title": "Circadian target",
+      "unit": "°K"
+    }
+  }
+}

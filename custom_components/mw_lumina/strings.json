@@ -1,0 +1,75 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "MW Lúmina",
+        "description": "Iluminação circadiana por ambiente, com horários, dias da semana, temperatura, umidade, clima e cenas predefinidas. Toda a configuração rica acontece no painel (sidebar → MW Lúmina).",
+        "data": {
+          "name": "Nome da casa"
+        }
+      }
+    },
+    "abort": {
+      "single_instance_allowed": "A MW Lúmina é uma integração única — ela já está configurada."
+    }
+  },
+  "services": {
+    "apply_scene": {
+      "name": "Aplicar cena",
+      "description": "Ativa uma cena na casa inteira ou em um ambiente, com duração em minutos.",
+      "fields": {
+        "scene": {
+          "name": "Cena",
+          "description": "Identificador da cena (ex.: por_do_sol, cinema, trabalho)."
+        },
+        "room": {
+          "name": "Ambiente",
+          "description": "Chave do ambiente (ex.: escritorio). Omita para a casa toda."
+        },
+        "minutes": {
+          "name": "Duração (minutos)",
+          "description": "Tempo de hold da cena antes de o circadiano reassumir."
+        }
+      }
+    },
+    "set_mode": {
+      "name": "Definir modo",
+      "description": "Auto para o circadiano organizar; manual congela o ambiente.",
+      "fields": {
+        "room": {
+          "name": "Ambiente",
+          "description": "Chave do ambiente."
+        },
+        "mode": {
+          "name": "Modo",
+          "description": "auto = circadiano/agenda; manual = Lúmina não mexe."
+        }
+      }
+    },
+    "clear_scene": {
+      "name": "Limpar cena",
+      "description": "Cancela a cena ativa na casa ou em um ambiente.",
+      "fields": {
+        "room": {
+          "name": "Ambiente",
+          "description": "Chave do ambiente; omita para limpar a casa."
+        }
+      }
+    }
+  },
+  "select": {
+    "modo": {
+      "title": "Modo do ambiente",
+      "state": {
+        "auto": "Auto (circadiano)",
+        "manual": "Manual"
+      }
+    }
+  },
+  "sensor": {
+    "alvo": {
+      "title": "Alvo circadiano",
+      "unit": "°K"
+    }
+  }
+}

@@ -1,0 +1,56 @@
+name: Release
+
+on:
+  push:
+    tags: ['v*']
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: release-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  release:
+    name: publica a release HACS
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: qual versão estamos publicando?
+        id: versao
+        run: |
+          TAG="${GITHUB_REF_NAME#v}"
+          M=$(python -c "import json;print(json.load(open('custom_components/mw_lumina/manifest.json'))['version'])")
+          echo "tag=$TAG manifest=$M"
+          [ "$TAG" = "$M" ] || {
+            echo "::error::tag ${GITHUB_REF_NAME} ≠ manifest $M — atualize o manifest antes de serrar";
+            exit 1; }
+          echo "version=$TAG" >> "$GITHUB_OUTPUT"
+
+      - name: changelog da tag
+        id: log
+        run: |
+          PREV=$(git tag --sort=-v:refname | grep ^v | sed -n '2p')
+          if [ -n "$PREV" ]; then
+            RANGE="$PREV..${GITHUB_REF_NAME}"
+          else
+            RANGE="${GITHUB_REF_NAME}"
+          fi
+          {
+            echo "body<<WSLOCK"
+            echo "## MW Lúmina ${{ steps.versao.outputs.version }}"
+            echo ""
+            git log "$RANGE" --oneline --no-decorate | sed 's/^/- /'
+            echo "WSLOCK"
+          } >> "$GITHUB_OUTPUT"
+
+      - uses: softprops/action-gh-release@v2
+        with:
+          name: MW Lúmina ${{ steps.versao.outputs.version }}
+          body: ${{ steps.log.outputs.body }}
+          generate_release_notes: false

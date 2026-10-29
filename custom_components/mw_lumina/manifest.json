@@ -1,0 +1,14 @@
+{
+  "domain": "mw_lumina",
+  "name": "MW Lúmina",
+  "codeowners": ["@visaodeempresa"],
+  "config_flow": true,
+  "documentation": "https://github.com/visaodeempresa/mw-ha-lumina",
+  "integration_type": "hub",
+  "iot_class": "calculated",
+  "issue_tracker": "https://github.com/visaodeempresa/mw-ha-lumina/issues",
+  "loggers": ["custom_components.mw_lumina"],
+  "requirements": [],
+  "single_config_entry": true,
+  "version": "1.0.0"
+}
